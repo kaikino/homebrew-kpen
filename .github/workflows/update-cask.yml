@@ -1,0 +1,35 @@
+# .github/workflows/update-cask.yml
+name: Update Cask
+
+on:
+  repository_dispatch:
+    types: [update-cask]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout homebrew-kpen
+        uses: actions/checkout@v4
+
+      - name: Update kpen.rb
+        env:
+          VERSION:  ${{ github.event.client_payload.version }}
+          SHA256:   ${{ github.event.client_payload.sha256 }}
+          URL:      ${{ github.event.client_payload.url }}
+        run: |
+          sed -i "s|version \".*\"|version \"${VERSION}\"|" Casks/kpen.rb
+          sed -i "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Casks/kpen.rb
+          sed -i "s|url \".*\"|url \"${URL}\"|" Casks/kpen.rb
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Casks/kpen.rb
+          git commit -m "Update kpen cask to v${{ github.event.client_payload.version }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
