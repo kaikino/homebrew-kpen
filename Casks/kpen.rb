@@ -3,9 +3,9 @@
 # Install with: brew install --cask kaikino/kpen/kpen
 
 cask "kpen" do
-  version "1.0.8"
-  sha256 "eb8213e31bedb92b353f76de3ec94633b8b29533f7a52cacb6f0afc011a7224c"
-  url "https://github.com/kaikino/kPen/releases/download/v1.0.8/kPen-1.0.8.dmg"
+  version "1.1.0"
+  sha256 "2b8b9f8df753b454657e9ca579ccbf02177679279775f1db4d29d6129f73118d"
+  url "https://github.com/kaikino/kPen/releases/download/v1.1.0/kPen-1.1.0.dmg"
 
   name "kPen"
   desc "a lightweight image editor"
